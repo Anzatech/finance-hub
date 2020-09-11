@@ -44,17 +44,17 @@ const Footer = () => {
             <section className='footer-menu'>
                 <div>
                     <ul>
-                        <a href='#' ><li>About Us</li></a>
-                        <a href='#' ><li>Contact</li></a>
-                        <a href='#' ><li>Terms & Conditions</li></a>
-                        <a href='#' ><li>Meet our Partner Banks</li></a>
+                        <a href='www.google.com' ><li>About Us</li></a>
+                        <a href='www.google.com' ><li>Contact</li></a>
+                        <a href='www.google.com' ><li>Terms & Conditions</li></a>
+                        <a href='www.google.com' ><li>Meet our Partner Banks</li></a>
                     </ul>
                 </div>
                 <div className='social-links'>
                     <ul>
-                        <a href='#' ><li>Facebook</li></a>
-                        <a href='#' ><li>Twitter</li></a>
-                        <a href='#' ><li>Instagram</li></a>
+                        <a href='www.google.com' ><li>Facebook</li></a>
+                        <a href='www.google.com' ><li>Twitter</li></a>
+                        <a href='www.google.com' ><li>Instagram</li></a>
                     </ul>
                 </div>
                 <div className='subscribe'>
