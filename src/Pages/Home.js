@@ -5,13 +5,24 @@ import styled from 'styled-components';
 // import Calculator from '../Components/Calculator';
 
 const CalculatorStyle = styled.div`
-    // width: 100%;
-    // height: 45%;
+    height: 45%;
     background-color: #5C80BC;
+    padding: 2rem 0;
 
     .calculator {
-        margin: 3rem 0;
+        margin: 1rem 0;
         background-color: #5C80BC;
+        
+        a {
+            padding: 1rem;
+            margin: 3rem 0;
+            color: white;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: black;
+        }
     }
 
     .calc {
@@ -26,8 +37,8 @@ const BodyStyle = styled.div`
 
     .markets {
         text-align:left;
-        padding: 2rem 0;
-        border-bottom: 2px black solid;
+        padding: 1rem 0;
+        border-bottom: 2px #5C80BC solid;
         color: #84DCC6;
     }
 
@@ -36,32 +47,30 @@ const BodyStyle = styled.div`
         justify-content: space-between;
 
         p {
-             text-align:left;
+            text-align:left;
+            background-color: #5C80BC;
+            color: white;
+            padding: 0.5rem;
         }
 
-        .stocks {
+        div {
             width: 30%;
         }
 
-        .forex {
-            width: 30%;
-        }
+        .table {
+            width: 100%;
 
-        .commodities {
-            width: 30%;
-        }
-
-        table {
-            width: 100%
-            display: flex;
-            justify-content: space-around; 
+            tr {
+                display:flex;
+                justify-content: space-between;    
+            }
         }
     }
 
     .blog-content .blogs {
         text-align: left;
-        padding: 2rem 0;
-        border-bottom: 2px black solid;
+        padding: 1rem 0;
+        border-bottom: 2px #5C80BC solid;
         color: #84DCC6;
     }
 `
@@ -88,7 +97,7 @@ const Home = () => {
                 <div className='market-content'>
                     <div className = 'stocks'>
                         <p>Stocks</p>
-                        <table style={{width:'32.5%'}}>
+                        <table className = 'table stock'>
                             <tr>
                                 <td>Apple</td>
                                 <td>-2.5</td>
@@ -113,7 +122,7 @@ const Home = () => {
                     </div>
                     <div className = 'forex'>
                         <p>Foreign Exchange</p>
-                        <table style={{width:'32.5%'}}>
+                        <table className = 'table foreign'>
                             <tr>
                                 <td>US Dollar</td>
                                 <td>5.8</td>
@@ -136,9 +145,9 @@ const Home = () => {
                             </tr>
                         </table>
                     </div>
-                    <div className = 'commodities'>
+                    <div className = 'commodity'>
                         <p>Commodities</p>
-                        <table style={{width:'32.5%'}}>
+                        <table className = 'table commodities'>
                             <tr>
                                 <td>Gold</td>
                                 <td>-2.5</td>

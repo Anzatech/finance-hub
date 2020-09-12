@@ -17,6 +17,7 @@ const FooterStyle = styled.div`
 
         a {
             text-decoration: none;
+            color: white;
         }
 
         a:visited {
@@ -29,6 +30,13 @@ const FooterStyle = styled.div`
 
         .subscribe {
             margin-left: 2rem;
+
+            button{
+                padding: 0.5rem;
+            }
+            .email {
+                padding: 0.5rem;
+            }
         }
     }
 
@@ -59,7 +67,13 @@ const Footer = () => {
                 </div>
                 <div className='subscribe'>
                     <p>Subscribe to our newsletter</p>
-                    <input placeholder='Email Address'/>
+                    <input 
+                        placeholder='Email Address'
+                        type='text'
+                        value=''
+                        name='email'
+                        className='email'
+                    />
                     <button>Subscribe</button>
                 </div>
             </section>
