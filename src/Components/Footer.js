@@ -3,14 +3,15 @@ import React from 'react';
 import styled from 'styled-components';
 
 const FooterStyle = styled.div`
-    background-color: #5C80BC;
+    background-color: #0080BC;
     width: 80%;
-    margin: 0 auto;
+    // margin: 0 auto;
     display: flex;
     justify-content: space-around;
-    margin-top:auto;
+    margin:auto auto 0 auto;
     padding: 3rem;
     color: white;
+    height: 8rem;
 
     .footer-menu {
         display: flex;
@@ -18,6 +19,10 @@ const FooterStyle = styled.div`
         a {
             text-decoration: none;
             color: white;
+        }
+
+        li {
+            margin: 0.8rem 0;
         }
 
         a:visited {
@@ -31,8 +36,9 @@ const FooterStyle = styled.div`
         .subscribe {
             margin-left: 2rem;
 
-            button{
+            .sub-button{
                 padding: 0.5rem;
+                margin: 1rem;
             }
             .email {
                 padding: 0.5rem;
@@ -74,7 +80,7 @@ const Footer = () => {
                         name='email'
                         className='email'
                     />
-                    <button>Subscribe</button>
+                    <button className='sub-button'>Subscribe</button>
                 </div>
             </section>
             <section className = 'contact-info'>

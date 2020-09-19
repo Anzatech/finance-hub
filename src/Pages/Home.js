@@ -1,27 +1,34 @@
 import React from 'react';
-import {Link, Switch, Route} from 'react-router-dom'; 
 
 import styled from 'styled-components';
-// import Calculator from '../Components/Calculator';
+
+import TBills from '../Components/TreasuryBills';
+import Forex from '../Components/Forex';
+import Tax from '../Components/Tax';
 
 const CalculatorStyle = styled.div`
-    height: 45%;
-    background-color: #5C80BC;
+    background-color: #0080BC;
     padding: 2rem 0;
+    margin: auto;
 
-    .calculator {
+    .message {
         margin: 1rem 0;
-        background-color: #5C80BC;
+        background-color: #0080BC;
+        color: #FFFFFF;
+
+        .register {
+            text-decoration: underline;
+        }
         
         a {
             padding: 1rem;
             margin: 3rem 0;
-            color: white;
+            color: #FFFFFF;
             text-decoration: none;
         }
 
         a:hover {
-            color: black;
+            color: #000000;
         }
     }
 
@@ -38,8 +45,8 @@ const BodyStyle = styled.div`
     .markets {
         text-align:left;
         padding: 1rem 0;
-        border-bottom: 2px #5C80BC solid;
-        color: #84DCC6;
+        border-bottom: 2px #0080BC solid;
+        color: #0080BC;
     }
 
     .market-content {
@@ -48,9 +55,10 @@ const BodyStyle = styled.div`
 
         p {
             text-align:left;
-            background-color: #5C80BC;
+            background-color: #0080BC;
             color: white;
             padding: 0.5rem;
+            border-radius: 0.6rem;
         }
 
         div {
@@ -67,33 +75,37 @@ const BodyStyle = styled.div`
         }
     }
 
-    .blog-content .blogs {
+    .blog-content {
+        height: 15rem;
+        align-items: center;
+
+        .blogs{
+            text-align: left;
+            padding: 1rem 0;
+            border-bottom: 2px #0080BC solid;
+            color: #0080BC;
+        }
+    }
+
+    .calculators .calculator{
         text-align: left;
         padding: 1rem 0;
-        border-bottom: 2px #5C80BC solid;
-        color: #84DCC6;
+        border-bottom: 2px #0080BC solid;
+        color: #0080BC;
     }
 `
 
 const Home = () => {
+
     return (
         <div>
-            {/* <Calculator /> */}
             <CalculatorStyle>
-            <div className='calculator'>
-                <Link to='/investment'>INVESTMENT CALCULATOR</Link><> || </>
-                <Link to='/forex'>FOREX</Link><> || </>
-                <Link to='/tax'>TAX CALCULATOR</Link>
+            <div className='message'>
+                <p>Do you want to know the best bank to invest in?<a className='register' href='www.google.com'>Join us</a></p>
             </div>
-        </CalculatorStyle>
-        <Switch>
-        <Route path='/investment' render={ ()=> <div className = 'calc investment'><input placeholder='amount' /> <input placeholder='%' /> <input placeholder ='result' /> <p>Interest per annum per BOG is 13.7%</p> </div>}/>
-        <Route path='/forex' render={ ()=> <div className = 'calc forex'><input placeholder='amount' /> <input placeholder='%' /> <input placeholder ='result' /></div>}/>
-        <Route path='/tax' render={ ()=> <div className = 'calc tax'><input placeholder='amount' /> <input placeholder='%' /> <input placeholder ='result' /></div>}/>
-        </Switch>
-        {/* <Route exact path='/' component={Home}/> */}
+            </CalculatorStyle>
             <BodyStyle>
-                <p className='markets'>MARKETS</p>
+                <h3><p className='markets'>MARKETS</p></h3>
                 <div className='market-content'>
                     <div className = 'stocks'>
                         <p>Stocks</p>
@@ -172,12 +184,18 @@ const Home = () => {
                     </div>
                 </div>
                 <div className = 'blog-content'>
-                    <p className = 'blogs'>BLOGS</p>
+                    <h3><p className = 'blogs'>BLOGS</p></h3>
                     <div className = 'blog-posts'>
                         <p>Coming Soon</p>
                     </div>
-                </div>
-            </BodyStyle>
+                </div>        
+                <section className='calculators'>
+                    <h3><p className='calculator'>CALCULATORS</p></h3>
+                    <TBills className='tbills' name='tbills'/> 
+                    <Forex className='forex' name='forex' />
+                    <Tax className='tax' name='tax' /> 
+                </section>
+            </BodyStyle>     
         </div>
     );
 };
