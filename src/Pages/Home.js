@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 
+import axios from 'axios';
 import styled from 'styled-components';
 
 import TBills from '../Components/TreasuryBills';
-import Forex from '../Components/Forex';
+// import Forex from '../Components/Forex';
 import Tax from '../Components/Tax';
 
 const CalculatorStyle = styled.div`
@@ -72,6 +73,10 @@ const BodyStyle = styled.div`
                 display:flex;
                 justify-content: space-between;    
             }
+
+            td {
+                margin: 0.5rem 0;
+            }
         }
     }
 
@@ -92,10 +97,41 @@ const BodyStyle = styled.div`
         padding: 1rem 0;
         border-bottom: 2px #0080BC solid;
         color: #0080BC;
+
+        .calc-cards {
+            display: flex;
+        }
     }
 `
 
 const Home = () => {
+
+    const [rates, setRates] = useState([]);
+    const [date, setDate] = useState('');
+    const [result, setResult] = useState([]);
+
+    useEffect(() => {
+        axios.get('http://data.fixer.io/api/latest?access_key=651c0b57cb94cb75ee385d0af3a2c3e3')
+            .then(res => {
+                setRates(res.data.rates)
+                setDate(res.data.date)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }, [date])
+
+    useEffect(()=> {
+        axios.get('https://api.apify.com/v2/datasets/hfB8bubW1NhvQARZT/items?format=json&clean=1')
+            .then(res => {
+                setResult(res.data[0].result)
+                console.log(res.data[0].result)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    })
+
 
     return (
         <div>
@@ -133,27 +169,27 @@ const Home = () => {
                         </table>
                     </div>
                     <div className = 'forex'>
-                        <p>Foreign Exchange</p>
+                        <p>Foreign Exchange <small>(base=EUR)</small></p>
                         <table className = 'table foreign'>
                             <tr>
+                                <td>Ghana Cedi</td>
+                                <td>{rates.GHS}</td>
+                            </tr>
+                            <tr>
                                 <td>US Dollar</td>
-                                <td>5.8</td>
+                                <td>{rates.USD}</td>
                             </tr>
                             <tr>
-                                <td>Euro</td>
-                                <td>7.7</td>
-                            </tr>
-                            <tr>
-                                <td>Pounds</td>
-                                <td>8.4</td>
+                                <td>GB Pounds</td>
+                                <td>{rates.GBP}</td>
                             </tr>
                             <tr>
                                 <td>CD Dollar</td>
-                                <td>7.2</td>
+                                <td>{rates.CAD}</td>
                             </tr>
                             <tr>
                                 <td>Yen</td>
-                                <td>3.7</td>
+                                <td>{rates.JPY}</td>
                             </tr>
                         </table>
                     </div>
@@ -161,24 +197,24 @@ const Home = () => {
                         <p>Commodities</p>
                         <table className = 'table commodities'>
                             <tr>
-                                <td>Gold</td>
-                                <td>-2.5</td>
+                                <td>Gold <small>($/troy ounce)</small></td>
+                                <td>{result.gold}</td>
                             </tr>
                             <tr>
-                                <td>Oil</td>
-                                <td>-2.5</td>
+                                <td>Oil <small>($/barrel)</small></td>
+                                <td>{result.brentCrude}</td>
                             </tr>
                             <tr>
-                                <td>Cocoa</td>
-                                <td>-2.5</td>
+                                <td>Cocoa <small>($/metric tonne)</small></td>
+                                <td>{result.cocoa}</td>
                             </tr>
                             <tr>
-                                <td>Gas</td>
-                                <td>-2.5</td>
+                                <td>Natural Gas <small>($/million BTUs)</small></td>
+                                <td>{result.gas}</td>
                             </tr>
                             <tr>
-                                <td>Coffee</td>
-                                <td>-2.5</td>
+                                <td>Coffee <small>($/pound)</small></td>
+                                <td>{result.coffee}</td>
                             </tr>
                         </table>
                     </div>
@@ -191,9 +227,11 @@ const Home = () => {
                 </div>        
                 <section className='calculators'>
                     <h3><p className='calculator'>CALCULATORS</p></h3>
-                    <TBills className='tbills' name='tbills'/> 
-                    <Forex className='forex' name='forex' />
-                    <Tax className='tax' name='tax' /> 
+                    <div className = 'calc-cards'>
+                        <TBills className='tbills' name='tbills'/> 
+                        {/* <Forex className='forex' name='forex' /> */}
+                        <Tax className='tax' name='tax' /> 
+                    </div>
                 </section>
             </BodyStyle>     
         </div>

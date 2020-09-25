@@ -66,8 +66,9 @@ const Nav = () => {
             <div className='menu-search'>
                 <div className='nav-menu'>
                     <Link to='/'><ScrollLink activeClass='active'  to='tbills' smooth={true}>INVESTMENT CALCULATOR</ScrollLink></Link>
-                    <Link to='/'><ScrollLink activeClass='active'  to='forex' smooth={true}>FOREX</ScrollLink></Link>
+                    {/* <Link to='/'><ScrollLink activeClass='active'  to='forex' smooth={true}>FOREX</ScrollLink></Link> */}
                     <Link to='/'><ScrollLink activeClass='active'  to='tax' smooth={true}>TAX CALCULATOR</ScrollLink></Link>
+                    <Link to='/about'>ABOUT US</Link>
                 </div>
                 <div className='search-box'>
                     <input 
