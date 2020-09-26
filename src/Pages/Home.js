@@ -111,7 +111,7 @@ const Home = () => {
     const [result, setResult] = useState([]);
 
     useEffect(() => {
-        axios.get('http://data.fixer.io/api/latest?access_key=651c0b57cb94cb75ee385d0af3a2c3e3')
+        axios.get('https://data.fixer.io/api/latest?access_key=651c0b57cb94cb75ee385d0af3a2c3e3')
             .then(res => {
                 console.log(res.data.rates)
                 setRates(res.data.rates)
