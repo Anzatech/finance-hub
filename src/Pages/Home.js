@@ -113,6 +113,7 @@ const Home = () => {
     useEffect(() => {
         axios.get('http://data.fixer.io/api/latest?access_key=651c0b57cb94cb75ee385d0af3a2c3e3')
             .then(res => {
+                console.log(res.data.rates)
                 setRates(res.data.rates)
                 setDate(res.data.date)
             })
@@ -130,7 +131,7 @@ const Home = () => {
             .catch(err => {
                 console.log(err)
             })
-    })
+    }, [])
 
 
     return (
