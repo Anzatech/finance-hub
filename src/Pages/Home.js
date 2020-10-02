@@ -74,6 +74,10 @@ const BodyStyle = styled.div`
                 justify-content: space-between;    
             }
 
+            th {
+                margin: 0 0 0.8rem 0;
+            }
+
             td {
                 margin: 0.5rem 0;
             }
@@ -106,33 +110,94 @@ const BodyStyle = styled.div`
 
 const Home = () => {
 
-    const [rates, setRates] = useState([]);
-    const [date, setDate] = useState('');
+    //commodities
     const [result, setResult] = useState([]);
 
-    useEffect(() => {
-        axios.get('https://data.fixer.io/api/latest?access_key=651c0b57cb94cb75ee385d0af3a2c3e3')
-            .then(res => {
-                console.log(res.data.rates)
-                setRates(res.data.rates)
-                setDate(res.data.date)
-            })
-            .catch(err => {
-                console.log(err)
-            })
-    }, [date])
+    //forex
+    const [usd, setUsd] = useState([]);
+    const [gbp, setGbp] = useState([]);
+    const [eur, setEur] = useState([]);
+    const [zar, setZar] = useState([]);
+    const [cny, setCny] = useState([]);
+
+    //stocks
+    const [stocks, setStocks] = useState([]);
 
     useEffect(()=> {
-        axios.get('https://api.apify.com/v2/datasets/hfB8bubW1NhvQARZT/items?format=json&clean=1')
+        axios.get('https://api.apify.com/v2/datasets/YuAVtXWGP6gzWlF2h/items?format=json&clean=1')
             .then(res => {
                 setResult(res.data[0].result)
-                console.log(res.data[0].result)
             })
             .catch(err => {
                 console.log(err)
             })
     }, [])
 
+    //USD
+    useEffect(()=> {
+        axios.get('https://api.apify.com/v2/datasets/Chd6WcdZeeDcZ3V0p/items?format=json&clean=1')
+            .then(res => {
+                setUsd(res.data[0].usd)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }, [])
+
+    //GBP
+    useEffect(()=> {
+        axios.get('https://api.apify.com/v2/datasets/ExYNzpCH8kw4XpU1q/items?format=json&clean=1')
+            .then(res => {
+                setGbp(res.data[0].gbp)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }, [])
+
+    //EUR
+    useEffect(()=> {
+        axios.get('https://api.apify.com/v2/datasets/HdE0S4VyesNaCwiwD/items?format=json&clean=1')
+            .then(res => {
+                setEur(res.data[0].eur)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }, [])
+
+    //ZAR
+    useEffect(()=> {
+        axios.get('https://api.apify.com/v2/datasets/I9XP04wZ9FLKdYinL/items?format=json&clean=1')
+            .then(res => {
+                setZar(res.data[0].zar)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }, [])
+
+    //YUAN
+    useEffect(()=> {
+        axios.get('https://api.apify.com/v2/datasets/M45jfWXdbVK3bIprq/items?format=json&clean=1')
+            .then(res => {
+                setCny(res.data[0].cny)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }, [])
+
+    //Stocks
+    useEffect(()=> {
+        axios.get('https://api.apify.com/v2/datasets/BaDSlivU4mk6MtJTA/items?format=json&clean=1')
+            .then(res => {
+                setStocks(res.data[0].stocks)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    })
 
     return (
         <div>
@@ -148,55 +213,73 @@ const Home = () => {
                         <p>Stocks</p>
                         <table className = 'table stock'>
                             <tr>
-                                <td>Apple</td>
-                                <td>-2.5</td>
+                                <th>Company</th>
+                                <th>Opening Price(GHS)</th>
+                                <th>Closing Price(GHS)</th>
                             </tr>
                             <tr>
-                                <td>Microsoft</td>
-                                <td>-2.5</td>
+                                <td>MTNGH</td>
+                                <td>{stocks.mtnOpening}</td>
+                                <td>{stocks.mtnClosing}</td>
                             </tr>
                             <tr>
-                                <td>Ecobank</td>
-                                <td>-2.5</td>
+                                <td>GCB</td>
+                                <td>{stocks.gcbOpening}</td>
+                                <td>{stocks.gcbClosing}</td>
                             </tr>
                             <tr>
-                                <td>Vodafone</td>
-                                <td>-2.5</td>
+                                <td>GGBL</td>
+                                <td>{stocks.ggblOpening}</td>
+                                <td>{stocks.ggblClosing}</td>
                             </tr>
                             <tr>
-                                <td>GTP</td>
-                                <td>-2.5</td>
+                                <td>GOIL</td>
+                                <td>{stocks.goilOpening}</td>
+                                <td>{stocks.goilClosing}</td>
+                            </tr>
+                            <tr>
+                                <td>Ecobank Gh.</td>
+                                <td>{stocks.eghOpening}</td>
+                                <td>{stocks.eghClosing}</td>
                             </tr>
                         </table>
                     </div>
                     <div className = 'forex'>
-                        <p>Foreign Exchange <small>(base=EUR)</small></p>
+                        <p>Foreign Exchange <small>(base=GHS)</small></p>
                         <table className = 'table foreign'>
                             <tr>
-                                <td>Ghana Cedi</td>
-                                <td>{rates.GHS}</td>
+                                <th>Currency</th>
+                                <th>GHS equivalent</th>
                             </tr>
                             <tr>
                                 <td>US Dollar</td>
-                                <td>{rates.USD}</td>
+                                <td>{usd.dollar}</td>
                             </tr>
                             <tr>
                                 <td>GB Pounds</td>
-                                <td>{rates.GBP}</td>
+                                <td>{gbp.pound}</td>
                             </tr>
                             <tr>
-                                <td>CD Dollar</td>
-                                <td>{rates.CAD}</td>
+                                <td>Euros</td>
+                                <td>{eur.euros}</td>
                             </tr>
                             <tr>
-                                <td>Yen</td>
-                                <td>{rates.JPY}</td>
+                                <td>South African Rand</td>
+                                <td>{zar.rand}</td>
+                            </tr>
+                            <tr>
+                                <td>Chinese Yuan</td>
+                                <td>{cny.yuan}</td>
                             </tr>
                         </table>
                     </div>
                     <div className = 'commodity'>
                         <p>Commodities</p>
                         <table className = 'table commodities'>
+                            <tr>
+                                <th>Commodity</th>
+                                <th>Price</th>
+                            </tr>
                             <tr>
                                 <td>Gold <small>($/troy ounce)</small></td>
                                 <td>{result.gold}</td>
