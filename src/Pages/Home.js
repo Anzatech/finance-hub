@@ -4,7 +4,6 @@ import axios from 'axios';
 import styled from 'styled-components';
 
 import TBills from '../Components/TreasuryBills';
-// import Forex from '../Components/Forex';
 import Tax from '../Components/Tax';
 
 const CalculatorStyle = styled.div`
@@ -54,7 +53,7 @@ const BodyStyle = styled.div`
         display:flex;
         justify-content: space-between;
 
-        p {
+        h3 {
             text-align:left;
             background-color: #0080BC;
             color: white;
@@ -66,7 +65,41 @@ const BodyStyle = styled.div`
             width: 30%;
         }
 
-        .table {
+        .table.stocks{
+            width: 100%;
+
+            tr {
+                display:flex;  
+                justify-content: space-between;
+            }
+
+            tr:nth-of-type(1){
+                th:nth-of-type(n+2){
+                text-align: right;
+                }
+            }
+
+            tr:nth-of-type(n+1){
+                td:first-child {
+                    text-align: left;
+                }
+            }
+
+            th {
+                margin: 0 0 0.8rem 0;
+                text-align: left;
+                width: 33.33%;
+            }
+
+            td {
+                margin: 0.5rem 0;
+                vertical-align: bottom;
+                text-align: right;
+                width: 33.33%;
+            }
+        }
+
+        .table.foreign{
             width: 100%;
 
             tr {
@@ -80,8 +113,30 @@ const BodyStyle = styled.div`
 
             td {
                 margin: 0.5rem 0;
+                vertical-align: bottom;
+                text-align: left;
             }
         }
+
+        .table.commodities{
+            width: 100%;
+
+            tr {
+                display:flex;
+                justify-content: space-between;    
+            }
+
+            th {
+                margin: 0 0 0.8rem 0;
+            }
+
+            td {
+                margin: 0.5rem 0;
+                vertical-align: bottom;
+                text-align: left;
+            }
+        }
+
     }
 
     .blog-content {
@@ -96,14 +151,19 @@ const BodyStyle = styled.div`
         }
     }
 
-    .calculators .calculator{
-        text-align: left;
-        padding: 1rem 0;
-        border-bottom: 2px #0080BC solid;
-        color: #0080BC;
+    .calculators{  
+        h3{
+            text-align: left;
+            padding: 1rem 0;
+            border-bottom: 2px #0080BC solid;
+            color: #0080BC;
+            background-color: #FFFFFF;
+        }
 
         .calc-cards {
             display: flex;
+            justify-content: space-around;
+            color: #FFFFFF;
         }
     }
 `
@@ -210,113 +270,118 @@ const Home = () => {
                 <h3><p className='markets'>MARKETS</p></h3>
                 <div className='market-content'>
                     <div className = 'stocks'>
-                        <p>Stocks</p>
-                        <table className = 'table stock'>
-                            <tr>
-                                <th>Company</th>
-                                <th>Opening Price(GHS)</th>
-                                <th>Closing Price(GHS)</th>
-                            </tr>
-                            <tr>
-                                <td>MTNGH</td>
-                                <td>{stocks.mtnOpening}</td>
-                                <td>{stocks.mtnClosing}</td>
-                            </tr>
-                            <tr>
-                                <td>GCB</td>
-                                <td>{stocks.gcbOpening}</td>
-                                <td>{stocks.gcbClosing}</td>
-                            </tr>
-                            <tr>
-                                <td>GGBL</td>
-                                <td>{stocks.ggblOpening}</td>
-                                <td>{stocks.ggblClosing}</td>
-                            </tr>
-                            <tr>
-                                <td>GOIL</td>
-                                <td>{stocks.goilOpening}</td>
-                                <td>{stocks.goilClosing}</td>
-                            </tr>
-                            <tr>
-                                <td>Ecobank Gh.</td>
-                                <td>{stocks.eghOpening}</td>
-                                <td>{stocks.eghClosing}</td>
-                            </tr>
+                        <h3>Stocks</h3>
+                        <table className = 'table stocks'>
+                            <tbody>
+                                <tr>
+                                    <th>Company</th>
+                                    <th>Opening Price</th>
+                                    <th>Closing Price</th>
+                                </tr>
+                                <tr>
+                                    <td>MTNGH</td>
+                                    <td>GH₵ {stocks.mtnOpening}</td>
+                                    <td>GH₵ {stocks.mtnClosing}</td>
+                                </tr>
+                                <tr>
+                                    <td>GCB</td>
+                                    <td>GH₵ {stocks.gcbOpening}</td>
+                                    <td>GH₵ {stocks.gcbClosing}</td>
+                                </tr>
+                                <tr>
+                                    <td>GGBL</td>
+                                    <td>GH₵ {stocks.ggblOpening}</td>
+                                    <td>GH₵ {stocks.ggblClosing}</td>
+                                </tr>
+                                <tr>
+                                    <td>GOIL</td>
+                                    <td>GH₵ {stocks.goilOpening}</td>
+                                    <td>GH₵ {stocks.goilClosing}</td>
+                                </tr>
+                                <tr>
+                                    <td>Ecobank Gh.</td>
+                                    <td>GH₵ {stocks.eghOpening}</td>
+                                    <td>GH₵ {stocks.eghClosing}</td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
                     <div className = 'forex'>
-                        <p>Foreign Exchange <small>(base=GHS)</small></p>
+                        <h3>Foreign Exchange <small>(base=GHS)</small></h3>
                         <table className = 'table foreign'>
-                            <tr>
-                                <th>Currency</th>
-                                <th>GHS equivalent</th>
-                            </tr>
-                            <tr>
-                                <td>US Dollar</td>
-                                <td>{usd.dollar}</td>
-                            </tr>
-                            <tr>
-                                <td>GB Pounds</td>
-                                <td>{gbp.pound}</td>
-                            </tr>
-                            <tr>
-                                <td>Euros</td>
-                                <td>{eur.euros}</td>
-                            </tr>
-                            <tr>
-                                <td>South African Rand</td>
-                                <td>{zar.rand}</td>
-                            </tr>
-                            <tr>
-                                <td>Chinese Yuan</td>
-                                <td>{cny.yuan}</td>
-                            </tr>
+                            <tbody>
+                                <tr>
+                                    <th>Currency</th>
+                                    <th>GHS equivalent</th>
+                                </tr>
+                                <tr>
+                                    <td>US Dollar</td>
+                                    <td>{usd.dollar}</td>
+                                </tr>
+                                <tr>
+                                    <td>GB Pounds</td>
+                                    <td>{gbp.pound}</td>
+                                </tr>
+                                <tr>
+                                    <td>Euros</td>
+                                    <td>{eur.euros}</td>
+                                </tr>
+                                <tr>
+                                    <td>South African Rand</td>
+                                    <td>{zar.rand}</td>
+                                </tr>
+                                <tr>
+                                    <td>Chinese Yuan</td>
+                                    <td>{cny.yuan}</td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
                     <div className = 'commodity'>
-                        <p>Commodities</p>
+                        <h3>Commodities</h3>
                         <table className = 'table commodities'>
-                            <tr>
-                                <th>Commodity</th>
-                                <th>Price</th>
-                            </tr>
-                            <tr>
-                                <td>Gold <small>($/troy ounce)</small></td>
-                                <td>{result.gold}</td>
-                            </tr>
-                            <tr>
-                                <td>Oil <small>($/barrel)</small></td>
-                                <td>{result.brentCrude}</td>
-                            </tr>
-                            <tr>
-                                <td>Cocoa <small>($/metric tonne)</small></td>
-                                <td>{result.cocoa}</td>
-                            </tr>
-                            <tr>
-                                <td>Natural Gas <small>($/million BTUs)</small></td>
-                                <td>{result.gas}</td>
-                            </tr>
-                            <tr>
-                                <td>Coffee <small>($/pound)</small></td>
-                                <td>{result.coffee}</td>
-                            </tr>
+                            <tbody>
+                                <tr>
+                                    <th>Commodity</th>
+                                    <th>Price</th>
+                                </tr>
+                                <tr>
+                                    <td>Gold <small>($/troy ounce)</small></td>
+                                    <td>{result.gold}</td>
+                                </tr>
+                                <tr>
+                                    <td>Oil <small>($/barrel)</small></td>
+                                    <td>{result.brentCrude}</td>
+                                </tr>
+                                <tr>
+                                    <td>Cocoa <small>($/metric tonne)</small></td>
+                                    <td>{result.cocoa}</td>
+                                </tr>
+                                <tr>
+                                    <td>Natural Gas <small>($/million BTUs)</small></td>
+                                    <td>{result.gas}</td>
+                                </tr>
+                                <tr>
+                                    <td>Coffee <small>($/pound)</small></td>
+                                    <td>{result.coffee}</td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
                 </div>
+                <section className='calculators'>
+                    <h3><p className='calculator'>CALCULATORS</p></h3>
+                    <div className = 'calc-cards'>
+                        <TBills className='tbills' name='tbills'/> 
+                        <Tax className='tax' name='tax' /> 
+                    </div>
+                </section>
                 <div className = 'blog-content'>
                     <h3><p className = 'blogs'>BLOGS</p></h3>
                     <div className = 'blog-posts'>
                         <p>Coming Soon</p>
                     </div>
                 </div>        
-                <section className='calculators'>
-                    <h3><p className='calculator'>CALCULATORS</p></h3>
-                    <div className = 'calc-cards'>
-                        <TBills className='tbills' name='tbills'/> 
-                        {/* <Forex className='forex' name='forex' /> */}
-                        <Tax className='tax' name='tax' /> 
-                    </div>
-                </section>
             </BodyStyle>     
         </div>
     );

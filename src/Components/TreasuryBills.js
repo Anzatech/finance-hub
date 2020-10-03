@@ -6,7 +6,23 @@ const TBillsStyle = styled.div`
     background-color: #0080BC;
     width: 40%;
     padding: 2rem;
-    margin: 2rem auto;
+    margin: 2rem 0;
+    border-radius: 0.35rem;
+
+    input{
+        padding: 0.5rem;
+        border-radius: 0.45rem;
+    }
+
+    button {
+        padding: 0.5rem;
+        border-radius: 0.45rem;
+    }
+
+    .tbills {
+        display: flex;
+        justify-content: space-around;
+    }
 `
 // initial form values
 const initialFormValues = {
@@ -27,42 +43,45 @@ const Form = ({formValues, tenureResults, handleChange, onSubmit, isDisabled}) =
     return (
         <>
             <TBillsStyle className='tbills' name='tbills'>
-                <h4><p>TREASURY BILLS</p></h4>
-                <label for='amount'>Amount to be invested:</label>
-                <input 
-                    name='amount'
-                    id='amount'
-                    placeholder='Enter amount'
-                    value={formValues.amount}
-                    type='number'
-                    onChange={handleChange}
-                />
-                <label for='rate'>Enter rate</label>
-                <input 
-                    name='rate'
-                    id='rate'
-                    placeholder='Enter rate'
-                    value={formValues.rate}
-                    type='number'
-                    onChange={handleChange}
-                />
+                <h4><p>TREASURY BILLS CALCULATOR</p></h4>
+                <label for='amount'>Amount to be invested</label>
+                <p>
+                    <input 
+                        name='amount'
+                        id='amount'
+                        placeholder='Enter amount'
+                        value={formValues.amount}
+                        type='number'
+                        onChange={handleChange}
+                    />
+                </p>
+                <label for='rate'>Rate in %</label>
+                <p> 
+                    <input 
+                        name='rate'
+                        id='rate'
+                        placeholder='Enter rate'
+                        value={formValues.rate}
+                        type='number'
+                        onChange={handleChange}
+                    />
+                </p>
                 <p><button onClick={onSubmit} disabled={isDisabled()}>Calculate</button></p>
-                <p>Security type(tenure)</p>
-                <div>
-                    <p>91 day bill</p>
-                    <p>GHS {tenureResults.result91}</p>
-                </div>
-                <div>
-                    <p>182 day bill</p>
-                    <p>GHS {tenureResults.result182}</p>
-                </div>
-                <div>
-                    <p>364 day bill</p>
-                    <p>GHS {tenureResults.result364}</p>
-                </div>
-                <div>
-                    <p>3 Year FXR bond</p>
-                    <p>GHS {tenureResults.result3Year}</p>
+                <div className='tbills'>
+                    <div className='packages'>
+                    <h4>Security type(tenure)</h4>
+                        <p>91 day bill</p>
+                        <p>182 day bill</p>
+                        <p>364 day bill</p>
+                        <p>3 Year FXR bond</p>
+                    </div>
+                    <div className='interest'>
+                    <h4>Interest generated</h4>
+                        <p>GHS {tenureResults.result91}</p>
+                        <p>GHS {tenureResults.result182}</p>
+                        <p>GHS {tenureResults.result364}</p>
+                        <p>GHS {tenureResults.result3Year}</p>
+                    </div>
                 </div>
             </TBillsStyle>
         </>
@@ -90,7 +109,6 @@ const TreasuryBills = () => {
         let total3Year = parseFloat(formValues.rate)/100 * parseFloat(formValues.amount) + total364 * 3
         
         setTenureResults({result91: total91.toFixed(2), result182: total182.toFixed(2), result364: total364.toFixed(2), result3Year: total3Year.toFixed(2)})
-        // setFormValues(initialFormValues)
     }
 
     // isDisabled

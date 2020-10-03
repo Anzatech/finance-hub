@@ -6,12 +6,28 @@ const TaxStyle = styled.div`
     background-color: #0080BC;
     width: 40%;
     padding: 2rem;
-    margin: 2rem auto;
+    margin: 2rem 0;
+    border-radius: 0.35rem;
+
+    input{
+        padding: 0.5rem;
+        border-radius: 0.45rem;
+    }
+
+    button {
+        padding: 0.5rem;
+        border-radius: 0.45rem;
+    }
+
+    .tax-results {
+        display: flex;
+        justify-content: space-around;
+    }
 `
 
 // initialFormValues
 const initialFormValues = {
-    grossIncome: 0
+    grossIncome: 0,
     // taxRelief: 0,
     // allowances: 0
 }
@@ -24,42 +40,57 @@ const initialResult = {
 }
 
 // form
-const Form = ({formValues, netIncome, onhandleChange, onSubmit, isDisabled}) => {
+const Form = ({formValues, netIncome, handleChange, onSubmit, isDisabled}) => {
     return (
         <>
-            <TaxStyle>
-                <h4><p>Tax Calculator</p></h4>
-                <label for='income'>Enter your gross income</label>
-                <input 
-                    name='income'
-                    id='income'
-                    placeholder='Enter monthly gross income'
-                    value={formValues.grossIncome}
-                    type='number'
-                    onChange={onhandleChange}
-                />
-                {/* <label for='allowance'>Enter monthly allowances</label>
-                <input 
-                    name='allowance'
-                    id='allowance'
-                    placeholder='Enter allowances'
-                    value={formValues.allowances}
-                    type='number'
-                    onChange={handleChange}
-                />
-                <label for='taxRelief'>Enter tax relief</label>
-                <input 
-                    name='taxRelief'
-                    id='taxRelief'
-                    placeholder='Enter tax relief'
-                    value={formValues.taxRelief}
-                    type='number'
-                    onChange={handleChange} */}
-                {/* /> */}
+            <TaxStyle className='tax' name='tax'>
+                <h4><p>TAX CALCULATOR</p></h4>
+                <label for='income'>Gross income</label>
+                <p>
+                    <input 
+                        name='income'
+                        id='income'
+                        placeholder='Enter monthly gross income'
+                        value={formValues.grossIncome}
+                        type='number'
+                        onChange={handleChange}
+                    />
+                </p>
+                <label for='allowance'>Monthly allowances</label>
+                {/* <p>
+                    <input 
+                        name='allowance'
+                        id='allowance'
+                        placeholder='Enter allowances'
+                        defaultValue={formValues.allowances}
+                        type='number'
+                        onChange={handleChange}
+                    />
+                </p>
+                <label for='taxRelief'>Tax relief</label>
+                <p>
+                    <input 
+                        name='taxRelief'
+                        id='taxRelief'
+                        placeholder='Enter tax relief'
+                        defaultValue={formValues.taxRelief}
+                        type='number'
+                        onChange={handleChange}
+                    />
+                </p> */}
                 <p><button onClick={onSubmit} disabled={isDisabled()} className='button-calculate'>Calculate</button></p>
-                <p>Net income: GHS {netIncome.netIncomeResult}</p>
-                <p>Income tax: GHS {netIncome.incomeTax}</p>
-                <p>SSNIT: GHS {netIncome.ssnit}</p>
+                <div className='tax-results'>
+                    <div className='tax-info'>
+                        <p>Net income</p>
+                        <p>Income tax</p>
+                        <p>SSNIT</p>
+                    </div>
+                    <div className='tax-result'>
+                        <p>GHS {netIncome.netIncomeResult}</p>
+                        <p>GHS {netIncome.incomeTax}</p>
+                        <p>GHS {netIncome.ssnit}</p>
+                    </div>
+                </div>
             </TaxStyle>
         </>
     )
@@ -71,7 +102,7 @@ const Tax = () => {
     const [netIncome, setNetIncome] = useState(initialResult);
 
     // changes
-    const onhandleChange = (event) => {
+    const handleChange = (event) => {
         setFormValues({ ...formValues, [event.target.name]: event.target.value})
     }
 
@@ -120,7 +151,7 @@ const Tax = () => {
             formValues={formValues}
             netIncome={netIncome}
             onSubmit={handleSubmit}
-            onhandleChange={onhandleChange}
+            handleChange={handleChange}
             isDisabled={isDisabled}
         />
     );

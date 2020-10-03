@@ -25,7 +25,6 @@ const NavStyle = styled.div`
 
     .menu-search {
         display: flex;
-        // margin-top: 1.5rem;
         justify-content: space-between;
         align-items: center;
 
@@ -66,7 +65,6 @@ const Nav = () => {
             <div className='menu-search'>
                 <div className='nav-menu'>
                     <Link to='/'><ScrollLink activeClass='active'  to='tbills' smooth={true}>INVESTMENT CALCULATOR</ScrollLink></Link>
-                    {/* <Link to='/'><ScrollLink activeClass='active'  to='forex' smooth={true}>FOREX</ScrollLink></Link> */}
                     <Link to='/'><ScrollLink activeClass='active'  to='tax' smooth={true}>TAX CALCULATOR</ScrollLink></Link>
                     <Link to='/about'>ABOUT US</Link>
                 </div>
