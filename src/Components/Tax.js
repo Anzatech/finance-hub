@@ -3,6 +3,9 @@ import React, {useState} from 'react';
 import styled from 'styled-components';
 
 const TaxStyle = styled.div`
+    z-index: 0;
+    position: relative;
+
     background-color: #0080BC;
     width: 40%;
     padding: 2rem;
@@ -27,7 +30,7 @@ const TaxStyle = styled.div`
 
 // initialFormValues
 const initialFormValues = {
-    grossIncome: 0,
+    grossIncome: 0
     // taxRelief: 0,
     // allowances: 0
 }
@@ -40,23 +43,23 @@ const initialResult = {
 }
 
 // form
-const Form = ({formValues, netIncome, handleChange, onSubmit, isDisabled}) => {
+const Form = ({formValue, netIncome, handleChange, onSubmit, isDisabled}) => {
     return (
         <>
             <TaxStyle className='tax' name='tax'>
                 <h4><p>TAX CALCULATOR</p></h4>
-                <label for='income'>Gross income</label>
+                <label htmlFor='grossIncome'>Gross income</label>
                 <p>
                     <input 
-                        name='income'
-                        id='income'
+                        name='grossIncomee'
+                        id='grossIncome'
                         placeholder='Enter monthly gross income'
-                        value={formValues.grossIncome}
+                        defaultValue={formValue.grossIncome}
                         type='number'
                         onChange={handleChange}
                     />
                 </p>
-                <label for='allowance'>Monthly allowances</label>
+                {/* <label for='allowance'>Monthly allowances</label> */}
                 {/* <p>
                     <input 
                         name='allowance'
@@ -78,7 +81,7 @@ const Form = ({formValues, netIncome, handleChange, onSubmit, isDisabled}) => {
                         onChange={handleChange}
                     />
                 </p> */}
-                <p><button onClick={onSubmit} disabled={isDisabled()} className='button-calculate'>Calculate</button></p>
+                <p><button onClick={onSubmit} disabled={isDisabled()}>Calculate</button></p>
                 <div className='tax-results'>
                     <div className='tax-info'>
                         <p>Net income</p>
@@ -98,57 +101,59 @@ const Form = ({formValues, netIncome, handleChange, onSubmit, isDisabled}) => {
 
 const Tax = () => {
 
-    const [formValues, setFormValues] = useState(initialFormValues);
+    const [formValue, setFormValues] = useState(initialFormValues);
     const [netIncome, setNetIncome] = useState(initialResult);
 
     // changes
     const handleChange = (event) => {
-        setFormValues({ ...formValues, [event.target.name]: event.target.value})
+        setFormValues({ ...formValue, [event.target.name]: event.target.value})
     }
 
     // submit
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        if (parseFloat(formValues.grossIncome) === 319) {
+        if (parseFloat(formValue.grossIncome) === 319) {
             setNetIncome({netIncomeResult: 319, incomeTax: 0, ssnit: 0})
-        } else if(parseFloat(formValues.grossIncome) < 319 && parseFloat(formValues.grossIncome) > 0){
-            setNetIncome({netIncomeResult: formValues.grossIncome, incomeTax: 0, ssnit: 0})
-        } else if(parseFloat(formValues.grossIncome) > 319 && parseFloat(formValues.grossIncome) < 419){
-            setNetIncome({netIncomeResult: formValues.grossIncome, incomeTax: 0, ssnit: 0})
-        } else if(parseFloat(formValues.grossIncome) === 419){
-            setNetIncome({netIncomeResult: parseFloat(formValues.grossIncome) - 5 - (0.055 * parseFloat(formValues.grossIncome)), 
-            incomeTax: parseFloat(formValues.grossIncome) - 5, ssnit: 0.055 * parseFloat(formValues.grossIncome)})
-        } else if(parseFloat(formValues.grossIncome) > 419 && parseFloat(formValues.grossIncome) < 539) {
-            setNetIncome({netIncomeResult: parseFloat(formValues.grossIncome) - 5 - (0.055 * parseFloat(formValues.grossIncome)), 
-            incomeTax: parseFloat(formValues.grossIncome) - 5, ssnit: 0.055 * parseFloat(formValues.grossIncome)})
-        } else if(parseFloat(formValues.grossIncome) === 539){
-            setNetIncome({netIncomeResult: parseFloat(formValues.grossIncome) - 17 - (0.055 * parseFloat(formValues.grossIncome)), 
-            incomeTax: parseFloat(formValues.grossIncome) - 17, ssnit: 0.055 * parseFloat(formValues.grossIncome)})
-        } else if(parseFloat(formValues.grossIncome) > 539 && parseFloat(formValues.grossIncome) < 3539){
-            setNetIncome({netIncomeResult: parseFloat(formValues.grossIncome) - 17 - (0.055 * parseFloat(formValues.grossIncome)), 
-            incomeTax: parseFloat(formValues.grossIncome) - 17, ssnit: 0.055 * parseFloat(formValues.grossIncome)})
-        } else if(parseFloat(formValues.grossIncome) === 3539){
-            setNetIncome({netIncomeResult: parseFloat(formValues.grossIncome) - 542 - (0.055 * parseFloat(formValues.grossIncome)),
-            incomeTax: parseFloat(formValues.grossIncome) - 542, ssnit: 0.055 * parseFloat(formValues.grossIncome)})
-        } else if(parseFloat(formValues.grossIncome) > 3539 && parseFloat(formValues.grossIncome) < 20000){
-            setNetIncome({netIncomeResult: parseFloat(formValues.grossIncome) - 542 - (0.055 * parseFloat(formValues.grossIncome)),
-            incomeTax: parseFloat(formValues.grossIncome) - 542, ssnit: 0.055 * parseFloat(formValues.grossIncome)})
-        } else if(parseFloat(formValues.grossIncome) === 20000){
-            setNetIncome({netIncomeResult: (parseFloat(formValues.grossIncome) - 4,657.25) - (0.055 * parseFloat(formValues.grossIncome)),
-            incomeTax: (parseFloat(formValues.grossIncome) - 4,657.25), ssnit: 0.055 * parseFloat(formValues.grossIncome)})
-        } else if(parseFloat(formValues.grossIncome) > 20000){
-            setNetIncome({netIncomeResult: (parseFloat(formValues.grossIncome) * 0.3) - (0.055 * parseFloat(formValues.grossIncome)),
-            incomeTax: (parseFloat(formValues.grossIncome) * 0.3), ssnit: 0.055 * parseFloat(formValues.grossIncome)})
+        } else if(parseFloat(formValue.grossIncome) < 319 && parseFloat(formValue.grossIncome) > 0){
+            setNetIncome({netIncomeResult: formValue.grossIncome, incomeTax: 0, ssnit: 0})
+        } else if(parseFloat(formValue.grossIncome) > 319 && parseFloat(formValue.grossIncome) < 419){
+            setNetIncome({netIncomeResult: formValue.grossIncome, incomeTax: 0, ssnit: 0})
+        } else if(parseFloat(formValue.grossIncome) === 419){
+            setNetIncome({netIncomeResult: parseFloat(formValue.grossIncome) - 5 - (0.055 * parseFloat(formValue.grossIncome)), 
+            incomeTax: parseFloat(formValue.grossIncome) - 5, ssnit: 0.055 * parseFloat(formValue.grossIncome)})
+        } else if(parseFloat(formValue.grossIncome) > 419 && parseFloat(formValue.grossIncome) < 539) {
+            setNetIncome({netIncomeResult: parseFloat(formValue.grossIncome) - 5 - (0.055 * parseFloat(formValue.grossIncome)), 
+            incomeTax: parseFloat(formValue.grossIncome) - 5, ssnit: 0.055 * parseFloat(formValue.grossIncome)})
+        } else if(parseFloat(formValue.grossIncome) === 539){
+            setNetIncome({netIncomeResult: parseFloat(formValue.grossIncome) - 17 - (0.055 * parseFloat(formValue.grossIncome)), 
+            incomeTax: parseFloat(formValue.grossIncome) - 17, ssnit: 0.055 * parseFloat(formValue.grossIncome)})
+        } else if(parseFloat(formValue.grossIncome) > 539 && parseFloat(formValue.grossIncome) < 3539){
+            setNetIncome({netIncomeResult: parseFloat(formValue.grossIncome) - 17 - (0.055 * parseFloat(formValue.grossIncome)), 
+            incomeTax: parseFloat(formValue.grossIncome) - 17, ssnit: 0.055 * parseFloat(formValue.grossIncome)})
+        } else if(parseFloat(formValue.grossIncome) === 3539){
+            setNetIncome({netIncomeResult: parseFloat(formValue.grossIncome) - 542 - (0.055 * parseFloat(formValue.grossIncome)),
+            incomeTax: parseFloat(formValue.grossIncome) - 542, ssnit: 0.055 * parseFloat(formValue.grossIncome)})
+        } else if(parseFloat(formValue.grossIncome) > 3539 && parseFloat(formValue.grossIncome) < 20000){
+            setNetIncome({netIncomeResult: parseFloat(formValue.grossIncome) - 542 - (0.055 * parseFloat(formValue.grossIncome)),
+            incomeTax: parseFloat(formValue.grossIncome) - 542, ssnit: 0.055 * parseFloat(formValue.grossIncome)})
+        } else if(parseFloat(formValue.grossIncome) === 20000){
+            setNetIncome({netIncomeResult: (parseFloat(formValue.grossIncome) - 4,657.25) - (0.055 * parseFloat(formValue.grossIncome)),
+            incomeTax: (parseFloat(formValue.grossIncome) - 4,657.25), ssnit: 0.055 * parseFloat(formValue.grossIncome)})
+        } else if(parseFloat(formValue.grossIncome) > 20000){
+            setNetIncome({netIncomeResult: (parseFloat(formValue.grossIncome) * 0.3) - (0.055 * parseFloat(formValue.grossIncome)),
+            incomeTax: (parseFloat(formValue.grossIncome) * 0.3), ssnit: 0.055 * parseFloat(formValue.grossIncome)})
         } 
+
+       
     }
 
     // isDisabled
-    const isDisabled = () => !(formValues.grossIncome)
+    const isDisabled = () => !(formValue.grossIncome)
 
     return (
         <Form 
-            formValues={formValues}
+            formValue={formValue}
             netIncome={netIncome}
             onSubmit={handleSubmit}
             handleChange={handleChange}
